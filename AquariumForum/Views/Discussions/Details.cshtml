@@ -1,0 +1,69 @@
+﻿@model AquariumForum.Models.Discussion
+
+@{
+    ViewData["Title"] = "Discussion Details";
+}
+
+<h1>@Model.Title</h1>
+<p><strong>Posted on:</strong> @Model.CreateDate.ToString("yyyy-MM-dd HH:mm")</p>
+<hr />
+
+<h3>Discussion Content</h3>
+<p>@Model.Content</p>
+
+@if (!string.IsNullOrEmpty(Model.ImageFilename))
+{
+    <img src="~/images/@Model.ImageFilename" alt="Discussion Image" class="img-fluid rounded" style="max-width: 600px; height: auto;" />
+}
+else
+{
+    <p><em>No image uploaded for this discussion.</em></p>
+}
+
+<hr />
+
+<h3>Comments</h3>
+@if (Model.Comments != null && Model.Comments.Any())
+{
+    <div class="list-group">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="list-group-item">
+                <p>@comment.Content</p>
+                <p><small>Posted on @comment.CreateDate.ToString("yyyy-MM-dd HH:mm")</small></p>
+
+                <form asp-controller="Comments" asp-action="Delete" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@comment.CommentId" />
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p><em>No comments yet. Be the first to comment!</em></p>
+}
+
+<hr />
+
+<h3>Add a Comment</h3>
+<form asp-controller="Comments" asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="DiscussionId" value="@Model.DiscussionId" />
+
+    <div class="form-group">
+        <label for="Content">Your Comment</label>
+        <textarea name="Content" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+</form>
+
+<hr />
+
+<div>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.DiscussionId">Edit</a>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</div>

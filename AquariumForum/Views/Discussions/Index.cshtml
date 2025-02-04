@@ -1,0 +1,46 @@
+﻿@model IEnumerable<AquariumForum.Models.Discussion>
+
+@{
+    ViewData["Title"] = "Discussions";
+}
+
+<h1>Discussions</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">➕ New Discussion</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Posted On</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.Title, "Details", new { id = item.DiscussionId })</td>
+                <td>@item.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageFilename))
+                    {
+                        <img src="~/images/@item.ImageFilename" alt="Discussion Image" class="img-thumbnail" style="width: 80px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.DiscussionId">View</a>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.DiscussionId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

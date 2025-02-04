@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using AquariumForum.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AquariumForumContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AquariumForumContext") ?? throw new InvalidOperationException("Connection string 'AquariumForumContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

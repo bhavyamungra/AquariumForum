@@ -1,8 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<AquariumForum.Models.Discussion>
+
+@{
+    ViewData["Title"] = "Home - Discussions";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="text-center my-4">Latest Discussions</h1>
+
+@if (!Model.Any())
+{
+    <p class="text-center text-muted">No discussions available.</p>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var discussion in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <!-- ✅ Display Image Thumbnail -->
+                        @if (!string.IsNullOrEmpty(discussion.ImageFilename))
+                        {
+                            <img src="~/images/@discussion.ImageFilename" class="card-img-top" style="height: 200px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="text-center p-3 bg-light">No Image</div>
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId" class="text-decoration-none">
+                                    @discussion.Title
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted">
+                                <i class="fa-solid fa-calendar"></i> @discussion.CreateDate.ToString("yyyy-MM-dd HH:mm")
+                            </p>
+                            <p><i class="fa-solid fa-comments"></i> @discussion.Comments.Count Comments</p>
+
+                            <a asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@discussion.DiscussionId" class="btn btn-primary btn-sm">
+                                <i class="fa-solid fa-eye"></i> View Discussion
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
