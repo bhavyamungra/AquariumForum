@@ -42,25 +42,5 @@ namespace AquariumForum.Controllers
             // ✅ Redirect back to discussion page after adding comment
             return RedirectToAction("GetDiscussion", "Home", new { id = comment.DiscussionId });
         }
-
-        // ✅ DELETE COMMENT
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            int discussionId = comment.DiscussionId; // Store discussion ID before deletion
-
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            // ✅ Redirect back to the discussion page
-            return RedirectToAction("GetDiscussion", "Home", new { id = discussionId });
-        }
     }
 }

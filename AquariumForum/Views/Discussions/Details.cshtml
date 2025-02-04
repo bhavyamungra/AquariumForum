@@ -31,12 +31,6 @@ else
             <div class="list-group-item">
                 <p>@comment.Content</p>
                 <p><small>Posted on @comment.CreateDate.ToString("yyyy-MM-dd HH:mm")</small></p>
-
-                <form asp-controller="Comments" asp-action="Delete" method="post" style="display:inline;">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="id" value="@comment.CommentId" />
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                </form>
             </div>
         }
     </div>
