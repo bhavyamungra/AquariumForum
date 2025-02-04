@@ -4,18 +4,23 @@
     ViewData["Title"] = "Details";
 }
 
+<!--  Page Heading -->
 <h1>Details</h1>
 
+<!--  Display Comment Information -->
 <div>
     <h4>Comment</h4>
     <hr />
+    <!--  Using a Description List to Display Data in a Key-Value Format -->
     <dl class="row">
+        <!--  Display Comment Content -->
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Content)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Content)
         </dd>
+        <!--  Display Date When Comment Was Created -->
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>

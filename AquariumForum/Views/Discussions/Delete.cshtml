@@ -36,10 +36,11 @@
             @Html.DisplayFor(model => model.CreateDate)
         </dd>
     </dl>
-    
+
+    <!-- Form to confirm deletion -->
     <form asp-action="Delete">
-        <input type="hidden" asp-for="DiscussionId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="hidden" asp-for="DiscussionId" /> <!-- Stores Discussion ID -->
+        <input type="submit" value="Delete" class="btn btn-danger" /> |<!-- Deletes the discussion -->
+        <a asp-action="Index">Back to List</a>   <!-- Returns to discussions list -->
     </form>
 </div>

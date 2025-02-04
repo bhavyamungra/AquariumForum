@@ -1,37 +1,4 @@
-﻿//using System.Diagnostics;
-//using AquariumForum.Models;
-//using Microsoft.AspNetCore.Mvc;
-
-//namespace AquariumForum.Controllers
-//{
-//    public class HomeController : Controller
-//    {
-//        private readonly ILogger<HomeController> _logger;
-
-//        public HomeController(ILogger<HomeController> logger)
-//        {
-//            _logger = logger;
-//        }
-
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
-
-//        public IActionResult Privacy()
-//        {
-//            return View();
-//        }
-
-//        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-//        public IActionResult Error()
-//        {
-//            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-//        }
-//    }
-//}
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,14 +9,17 @@ public class HomeController : Controller
 {
     private readonly AquariumForumContext _context;
 
+    // Constructor to initialize the database context
     public HomeController(AquariumForumContext context)
     {
         _context = context;
     }
 
-    // ✅ Home Page - Display all discussions sorted by CreateDate DESC
+    // Home Page - Display all discussions sorted by CreateDate DESC
     public async Task<IActionResult> Index()
     {
+        // Retrieve discussions from the database, including their comments
+        // Ordered by the most recent discussion first
         var discussions = await _context.Discussions
             .Include(d => d.Comments) // Include comments to count them
             .OrderByDescending(d => d.CreateDate) // Sort by newest first
@@ -58,13 +28,15 @@ public class HomeController : Controller
         return View(discussions);
     }
 
-    // ✅ GetDiscussion - Show discussion details
+    // GetDiscussion - Show discussion details
     public async Task<IActionResult> GetDiscussion(int id)
     {
+        // Find the discussion by ID, including its comments
         var discussion = await _context.Discussions
             .Include(d => d.Comments)
-            .FirstOrDefaultAsync(d => d.DiscussionId == id);
+            .FirstOrDefaultAsync(d => d.DiscussionId == id); // Find the discussion matching the given ID
 
+        // If no discussion is found, return a 404 
         if (discussion == null)
         {
             return NotFound();

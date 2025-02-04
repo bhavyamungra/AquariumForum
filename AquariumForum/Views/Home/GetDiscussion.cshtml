@@ -1,20 +1,20 @@
 ﻿@model AquariumForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Discussion - " + Model.Title;
+    ViewData["Title"] = "Discussion - " + Model.Title; // Sets the page title dynamically
 }
 
 <div class="container mt-4">
-    <!-- ✅ Discussion Title -->
+    <!-- Discussion Title -->
     <h1 class="text-primary">@Model.Title</h1>
     <p class="text-muted"><i class="fa-solid fa-calendar"></i> Posted on: @Model.CreateDate.ToString("yyyy-MM-dd HH:mm")</p>
     <hr />
 
-    <!-- ✅ Discussion Content -->
+    <!-- Discussion Content -->
     <h3 class="my-3">Discussion Content</h3>
     <p class="lead">@Model.Content</p>
 
-    <!-- ✅ Show Image if Available -->
+    <!-- Show Image if Available -->
     @if (!string.IsNullOrEmpty(Model.ImageFilename))
     {
         <img src="~/images/@Model.ImageFilename" alt="Discussion Image" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" />
@@ -26,7 +26,7 @@
 
     <hr />
 
-    <!-- ✅ Add New Comment Button -->
+    <!-- Section Header for Comments with "Add New Comment" Button -->
     <div class="d-flex justify-content-between align-items-center">
         <h3>Comments</h3>
         <a class="btn btn-success btn-sm" asp-controller="Comments" asp-action="Create" asp-route-discussionId="@Model.DiscussionId">
@@ -36,27 +36,27 @@
 
     <hr />
 
-    <!-- ✅ Comments Section -->
-    @if (Model.Comments != null && Model.Comments.Any())
+    <!-- Comments Section -->
+    @if (Model.Comments != null && Model.Comments.Any()) // Checks if there are comments
     {
         <div class="list-group">
-            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreateDate))
+            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreateDate)) // Orders comments by latest first
             {
                 <div class="list-group-item border-left border-primary">
-                    <p class="mb-1">@comment.Content</p>
-                    <p class="text-muted"><small><i class="fa-solid fa-clock"></i> Posted on @comment.CreateDate.ToString("yyyy-MM-dd HH:mm")</small></p>
+                    <p class="mb-1">@comment.Content</p> <!-- Displays comment content -->
+                    <p class="text-muted"><small><i class="fa-solid fa-clock"></i> Posted on @comment.CreateDate.ToString("yyyy-MM-dd HH:mm")</small></p> <!-- Shows comment date -->
                 </div>
             }
         </div>
     }
     else
     {
-        <p class="text-muted">No comments yet. Be the first to comment!</p>
+        <p class="text-muted">No comments yet. Be the first to comment!</p> <!-- Message if no comments exist -->
     }
 
     <hr />
 
-    <!-- ✅ Back to Home Button -->
+    <!-- Back to Home Button -->
     <a class="btn btn-secondary" asp-action="Index">
         <i class="fa-solid fa-arrow-left"></i> Back to Home
     </a>

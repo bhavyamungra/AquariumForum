@@ -1,30 +1,38 @@
 ﻿@model IEnumerable<AquariumForum.Models.Discussion>
 
 @{
-    ViewData["Title"] = "Discussions";
+    ViewData["Title"] = "Discussions"; //  Sets the page title dynamically
 }
 
+<!--  Page Heading -->
 <h1>Discussions</h1>
 
+<!--  Button to Create a New Discussion -->
 <p>
     <a class="btn btn-primary" asp-action="Create">➕ New Discussion</a>
 </p>
 
+<!--  Table to Display All Discussions -->
 <table class="table">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Posted On</th>
-            <th>Image</th>
-            <th>Actions</th>
+            <th>Title</th> <!--  Discussion Title -->
+            <th>Posted On</th> <!--  Date the Discussion was Created -->
+            <th>Image</th> <!--  Displays an Image if Uploaded -->
+            <th>Actions</th> <!-- Buttons for Viewing, Editing, and Deleting -->
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model) //  Loops through each discussion in the list
         {
             <tr>
+                <!--  Clicking on Title Redirects to Discussion Details Page -->
                 <td>@Html.ActionLink(item.Title, "Details", new { id = item.DiscussionId })</td>
+
+                <!--  Formats and Displays the Discussion Creation Date -->
                 <td>@item.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+
+                <!--  Display Discussion Image if Available, Otherwise Show "No Image" -->
                 <td>
                     @if (!string.IsNullOrEmpty(item.ImageFilename))
                     {
@@ -32,13 +40,15 @@
                     }
                     else
                     {
-                        <span>No Image</span>
+                        <span>No Image</span> <!--  Shows "No Image" text if no image is uploaded -->
                     }
                 </td>
+
+                <!--  Action Buttons for Viewing, Editing, and Deleting Discussions -->
                 <td>
-                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.DiscussionId">View</a>
-                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.DiscussionId">Delete</a>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.DiscussionId">View</a> <!--  view Discussion Details -->
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a> <!--  Edit Discussion -->
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.DiscussionId">Delete</a> <!--  Delete Discussion -->
                 </td>
             </tr>
         }

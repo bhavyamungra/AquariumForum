@@ -4,6 +4,7 @@ namespace AquariumForum.Models
 {
     public class Comment
     {
+     
         public int CommentId { get; set; } // Primary Key
         public string? Content { get; set; } // Content of the comment
         public DateTime CreateDate { get; set; } // Date the comment was created

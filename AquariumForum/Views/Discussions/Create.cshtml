@@ -1,42 +1,48 @@
 ﻿@model AquariumForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Create Discussion";
+    ViewData["Title"] = "Create Discussion"; // Sets the page title dynamically
 }
 
+<!-- Page Heading -->
 <h1>Create Discussion</h1>
 
+<!-- Form to Create a New Discussion -->
 <form asp-action="Create" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-
+    @Html.AntiForgeryToken() <!-- Protects against CSRF attacks -->
+    <!-- Input field for Discussion Title -->
     <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+        <label asp-for="Title" class="control-label"></label> <!-- Displays the label for the title field -->
+        <input asp-for="Title" class="form-control" /> <!-- Input box for title -->
+        <span asp-validation-for="Title" class="text-danger"></span> <!-- Displays validation errors if any -->
     </div>
 
+    <!-- Input field for Discussion Content -->
     <div class="form-group">
-        <label asp-for="Content" class="control-label"></label>
-        <textarea asp-for="Content" class="form-control"></textarea>
-        <span asp-validation-for="Content" class="text-danger"></span>
+        <label asp-for="Content" class="control-label"></label> <!-- Displays the label for the content field -->
+        <textarea asp-for="Content" class="form-control"></textarea> <!-- Text area for discussion content -->
+        <span asp-validation-for="Content" class="text-danger"></span> <!-- Displays validation errors if any -->
     </div>
 
-    <!-- ✅ FIX: Replace ImageFilename Text Input with File Upload -->
+    <!-- File upload field for Discussion Image -->
     <div class="form-group">
-        <label asp-for="ImageFile" class="control-label">Upload Image</label>
-        <input type="file" asp-for="ImageFile" class="form-control-file" />
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <label asp-for="ImageFile" class="control-label">Upload Image</label> <!-- Displays the label for image upload -->
+        <input type="file" asp-for="ImageFile" class="form-control-file" /> <!-- File input for uploading an image -->
+        <span asp-validation-for="ImageFile" class="text-danger"></span> <!-- Displays validation errors if any -->
     </div>
 
-    <button type="submit" class="btn btn-primary mt-2">Create</button>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary mt-2">Create</button> <!-- Creates the discussion -->
 </form>
 
+<!-- Button to navigate back to the discussion list -->
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a> <!-- Returns to the list of discussions -->
 </div>
 
+<!-- Client-side validation script support -->
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); // Ensures validation scripts are loaded
     }
 }

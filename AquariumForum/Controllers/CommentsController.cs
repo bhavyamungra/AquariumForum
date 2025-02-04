@@ -17,7 +17,7 @@ namespace AquariumForum.Controllers
             _context = context;
         }
 
-        // ✅ Show Create Comment Form
+        //  Show Create Comment Form
         public IActionResult Create(int discussionId)
         {
             var comment = new Comment { DiscussionId = discussionId };

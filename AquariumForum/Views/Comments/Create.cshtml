@@ -4,26 +4,31 @@
     ViewData["Title"] = "Add a Comment";
 }
 
+<!--  Page Header -->
 <div class="container mt-4">
     <h1 class="text-center text-primary">Add a Comment</h1>
 
-    <!-- ✅ Show Error Message if Comment is Empty -->
+    <!--  Show Error Message if Comment is Empty -->
     @if (TempData["Error"] != null)
     {
         <div class="alert alert-danger">@TempData["Error"]</div>
     }
 
+    <!--  Comment Form -->
     <div class="card shadow-lg p-4">
         <form asp-controller="Comments" asp-action="Create" method="post">
-            @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()  <!-- Prevents CSRF attacks -->
+            <!-- Hidden field to store the Discussion ID (ensures comment is linked to the correct discussion) -->
             <input type="hidden" name="DiscussionId" value="@Model.DiscussionId" />
 
+            <!--  Comment Input Field -->
             <div class="mb-3">
                 <label for="Content" class="form-label"><strong>Your Comment</strong></label>
                 <textarea name="Content" class="form-control" rows="4" required></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
+            <!--  Submit Button -->
             <button type="submit" class="btn btn-primary w-100">
                 <i class="fa-solid fa-paper-plane"></i> Post Comment
             </button>
@@ -32,13 +37,16 @@
 
     <hr />
 
+    <!--  Navigation Buttons -->
     <div class="text-center mt-3">
+        <!-- Back to the same Discussion where the comment was posted -->
         <a class="btn btn-secondary" asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@Model.DiscussionId">
             <i class="fa-solid fa-arrow-left"></i> Back to Discussion
         </a>
     </div>
 </div>
 
+<!--  Enable Client-Side Validation (uses jQuery) -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

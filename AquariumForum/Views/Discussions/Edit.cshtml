@@ -1,49 +1,67 @@
 ﻿@model AquariumForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit"; // Sets the page title dynamically
 }
 
+<!-- Page Heading -->
 <h1>Edit</h1>
 
 <h4>Discussion</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
+        <!-- Form to Edit an Existing Discussion -->
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Displays validation errors for the entire model -->
+            <!-- Hidden field to store the Discussion ID (ensures correct record is updated) -->
             <input type="hidden" asp-for="DiscussionId" />
+
+            <!-- Input field for Discussion Title -->
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Title" class="control-label"></label> <!-- Displays label for Title -->
+                <input asp-for="Title" class="form-control" /> <!-- Input box for editing Title -->
+                <span asp-validation-for="Title" class="text-danger"></span> <!-- Displays validation errors if any -->
             </div>
+
+            <!-- Input field for Discussion Content -->
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
+                <label asp-for="Content" class="control-label"></label> <!-- Displays label for Content -->
+                <input asp-for="Content" class="form-control" /> <!-- Input box for editing Content -->
+                <span asp-validation-for="Content" class="text-danger"></span> <!-- Displays validation errors if any -->
             </div>
+
+            <!-- Input field for Image Filename (Not for file upload, just displays existing filename) -->
             <div class="form-group">
-                <label asp-for="ImageFilename" class="control-label"></label>
-                <input asp-for="ImageFilename" class="form-control" />
-                <span asp-validation-for="ImageFilename" class="text-danger"></span>
+                <label asp-for="ImageFilename" class="control-label"></label> <!-- Displays label for Image Filename -->
+                <input asp-for="ImageFilename" class="form-control" /> <!-- Input box for editing Image Filename -->
+                <span asp-validation-for="ImageFilename" class="text-danger"></span> <!-- Displays validation errors if any -->
             </div>
+
+            <!-- Input field for Discussion Creation Date -->
             <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
+                <label asp-for="CreateDate" class="control-label"></label> <!-- Displays label for Create Date -->
+                <input asp-for="CreateDate" class="form-control" /> <!-- Input box for editing Create Date -->
+                <span asp-validation-for="CreateDate" class="text-danger"></span> <!-- Displays validation errors if any -->
             </div>
+
+            <!-- Save Button -->
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" /> <!-- Submits the form to update the discussion -->
             </div>
         </form>
     </div>
 </div>
 
+<!-- Navigation Button to Go Back to the Discussion List -->
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a> <!-- Returns to the list of discussions -->
 </div>
 
+<!-- Client-side validation script support -->
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    } <!-- Ensures validation scripts are loaded -->
 }

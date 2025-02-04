@@ -1,16 +1,21 @@
 ﻿@model AquariumForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Discussion Details";
+    ViewData["Title"] = "Discussion Details";  // Sets the page title dynamically
 }
 
+<!-- Page Heading: Displays the title of the discussion -->
 <h1>@Model.Title</h1>
+
+<!-- Displays the date and time when the discussion was created -->
 <p><strong>Posted on:</strong> @Model.CreateDate.ToString("yyyy-MM-dd HH:mm")</p>
 <hr />
 
+<!-- Displays the main content of the discussion -->
 <h3>Discussion Content</h3>
 <p>@Model.Content</p>
 
+<!-- If an image is uploaded, display it; otherwise, show a message -->
 @if (!string.IsNullOrEmpty(Model.ImageFilename))
 {
     <img src="~/images/@Model.ImageFilename" alt="Discussion Image" class="img-fluid rounded" style="max-width: 600px; height: auto;" />
@@ -22,42 +27,45 @@ else
 
 <hr />
 
+<!-- Displays the list of comments for the discussion -->
 <h3>Comments</h3>
-@if (Model.Comments != null && Model.Comments.Any())
+@if (Model.Comments != null && Model.Comments.Any()) // Checks if there are any comments
 {
     <div class="list-group">
-        @foreach (var comment in Model.Comments)
+        @foreach (var comment in Model.Comments) // Loops through each comment
         {
             <div class="list-group-item">
-                <p>@comment.Content</p>
-                <p><small>Posted on @comment.CreateDate.ToString("yyyy-MM-dd HH:mm")</small></p>
+                <p>@comment.Content</p> <!-- Displays the comment content -->
+                <p><small>Posted on @comment.CreateDate.ToString("yyyy-MM-dd HH:mm")</small></p> <!-- Displays the comment timestamp -->
             </div>
         }
     </div>
 }
 else
 {
-    <p><em>No comments yet. Be the first to comment!</em></p>
+    <p><em>No comments yet. Be the first to comment!</em></p> <!-- Message if no comments exist -->
 }
 
 <hr />
 
+<!-- Form to add a new comment to the discussion -->
 <h3>Add a Comment</h3>
 <form asp-controller="Comments" asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="DiscussionId" value="@Model.DiscussionId" />
+    @Html.AntiForgeryToken() <!-- Protects against CSRF attacks -->
+    <input type="hidden" name="DiscussionId" value="@Model.DiscussionId" /> <!-- Stores the discussion ID -->
 
     <div class="form-group">
         <label for="Content">Your Comment</label>
-        <textarea name="Content" class="form-control" rows="3" required></textarea>
+        <textarea name="Content" class="form-control" rows="3" required></textarea> <!-- Textbox for user input -->
     </div>
 
-    <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+    <button type="submit" class="btn btn-primary mt-2">Post Comment</button> <!-- Button to submit the comment -->
 </form>
 
 <hr />
 
+<!-- Navigation buttons for editing the discussion and returning to the list -->
 <div>
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.DiscussionId">Edit</a>
-    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.DiscussionId">Edit</a> <!-- Edit discussion button -->
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a> <!-- Button to return to the discussion list -->
 </div>

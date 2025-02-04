@@ -6,9 +6,11 @@
 
 <h1>Index</h1>
 
+<!--  Button to Navigate to the Comment Creation Page -->
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<!--  Table to Display All Comments -->
 <table class="table">
     <thead>
         <tr>
@@ -25,15 +27,19 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)// Loop through all comments and display them
+{
         <tr>
             <td>
+                    <!--  Displays Comment Content -->
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
+                    <!--  Displays Formatted Comment Date -->
                 @Html.DisplayFor(modelItem => item.CreateDate)
             </td>
             <td>
+                    <!--  Link to the Discussion Where the Comment Belongs -->
                 @Html.DisplayFor(modelItem => item.DiscussionId)
             </td>
             <td>
