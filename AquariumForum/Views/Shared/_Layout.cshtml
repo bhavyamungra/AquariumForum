@@ -5,25 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AquariumForum</title>
 
-    <!-- ✅ Bootstrap & Font Awesome -->
+    <!-- Bootstrap & Font Awesome for styling and icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Custom stylesheets -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AquariumForum.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <!-- ✅ Stylish Navbar -->
+    <!-- Navigation Bar -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
+                <!-- Brand Logo -->
                 <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="fa-solid fa-fish"></i> AquariumForum
                 </a>
+
+                <!-- Mobile Toggle Button -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- Navbar Links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -47,14 +53,14 @@
         </nav>
     </header>
 
-    <!-- ✅ Page Container -->
+    <!-- Main Content Container -->
     <div class="container mt-4">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody() <!-- This dynamically renders the main content of the page -->
         </main>
     </div>
 
-    <!-- ✅ Modern Footer -->
+    <!-- Footer Section -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <div class="container">
             <p class="mb-1">&copy; 2025 AquariumForum - All rights reserved.</p>
@@ -62,10 +68,12 @@
         </div>
     </footer>
 
-    <!-- ✅ Bootstrap & jQuery -->
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Render additional scripts dynamically if required -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
