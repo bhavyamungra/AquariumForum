@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AquariumForum.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AquariumForum.Data
 {
-    public class AquariumForumContext : DbContext
+    public class AquariumForumContext : IdentityDbContext<ApplicationUser>
     {
         public AquariumForumContext (DbContextOptions<AquariumForumContext> options)
             : base(options)
